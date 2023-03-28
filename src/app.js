@@ -16,6 +16,12 @@ app.get('/livros', (req, res) => {
   res.status(200).json(books);
 });
 
+app.get('/livros/:id', (req, res) => {
+  const bookIndex = getBookIndex(req.params.id);
+  
+  res.json(books[bookIndex]);
+});
+
 app.post('/livros', (req, res) => {
   books.push(req.body);
   res.status(201).send('Livro foi cadastrado com sucesso!'); 
