@@ -18,7 +18,7 @@ app.get('/livros', (req, res) => {
 
 app.get('/livros/:id', (req, res) => {
   const bookIndex = getBookIndex(req.params.id);
-  
+
   res.json(books[bookIndex]);
 });
 
@@ -32,6 +32,15 @@ app.put('/livros/:id', (req, res) => {
   books[bookIndex].title = req.body.title;
 
   res.json(books);
+});
+
+app.delete('/livros/:id', (req, res) => {
+  const { id } = req.params;
+  const bookIndex = getBookIndex(id);
+
+  books.splice(bookIndex, 1);
+
+  res.send(`Livro ${id} removido com sucesso!`);
 });
 
 function getBookIndex(id) {
