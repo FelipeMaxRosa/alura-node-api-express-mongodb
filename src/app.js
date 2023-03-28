@@ -21,4 +21,15 @@ app.post('/livros', (req, res) => {
   res.status(201).send('Livro foi cadastrado com sucesso!'); 
 });
 
+app.put('/livros/:id', (req, res) => {
+  const bookIndex = getBookIndex(req.params.id);
+  books[bookIndex].title = req.body.title;
+
+  res.json(books);
+});
+
+function getBookIndex(id) {
+  return books.findIndex((book) => book.id == id);
+}
+
 export default app;
