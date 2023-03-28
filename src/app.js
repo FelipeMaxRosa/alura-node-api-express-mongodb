@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.status(200).send('Curso de Node');
 });
 
-app.get('/livros', async (req, res) => {
+app.get('/books', async (req, res) => {
   try {
     const allBooks = await books.find();
     res.status(200).json(allBooks);
@@ -24,31 +24,31 @@ app.get('/livros', async (req, res) => {
   }
 });
 
-app.get('/livros/:id', (req, res) => {
+app.get('/books/:id', (req, res) => {
   const bookIndex = getBookIndex(req.params.id);
 
   res.json(books[bookIndex]);
 });
 
-app.post('/livros', (req, res) => {
+app.post('/books', (req, res) => {
   books.push(req.body);
-  res.status(201).send('Livro foi cadastrado com sucesso!'); 
+  res.status(201).send('Book has been added successfully!'); 
 });
 
-app.put('/livros/:id', (req, res) => {
+app.put('/books/:id', (req, res) => {
   const bookIndex = getBookIndex(req.params.id);
   books[bookIndex].title = req.body.title;
 
   res.json(books);
 });
 
-app.delete('/livros/:id', (req, res) => {
+app.delete('/books/:id', (req, res) => {
   const { id } = req.params;
   const bookIndex = getBookIndex(id);
 
   books.splice(bookIndex, 1);
 
-  res.send(`Livro ${id} removido com sucesso!`);
+  res.send(`Book ${id} has been removed successfully!`);
 });
 
 function getBookIndex(id) {
