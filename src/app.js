@@ -13,28 +13,11 @@ const app = express();
 app.use(express.json());
 routes(app);
 
-// app.get('/', (req, res) => {
-//   res.status(200).send('Curso de Node');
-// });
-
-// app.get('/books', async (req, res) => {
-//   try {
-//     const allBooks = await books.find();
-//     res.status(200).json(allBooks);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
 
 app.get('/books/:id', (req, res) => {
   const bookIndex = getBookIndex(req.params.id);
 
   res.json(books[bookIndex]);
-});
-
-app.post('/books', (req, res) => {
-  books.push(req.body);
-  res.status(201).send('Book has been added successfully!'); 
 });
 
 app.put('/books/:id', (req, res) => {
