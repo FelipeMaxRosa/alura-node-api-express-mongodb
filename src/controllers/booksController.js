@@ -1,9 +1,5 @@
 import books from '../models/Book.js';
 
-function getBookIndex(id) {
-  return books.findIndex((book) => book.id == id);
-}
-
 const BooksController = {
   booksList: async (req, res) => {
     try {
