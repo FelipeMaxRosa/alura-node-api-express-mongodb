@@ -2,6 +2,7 @@ import express from 'express';
 
 import db from './config/dbConnect.js';
 import books from './models/Book.js';
+import routes from './routes/index.js';
 
 db.on("error", () => console.log("DB connection error"));
 db.once("open", () => {
@@ -10,19 +11,20 @@ db.once("open", () => {
 
 const app = express();
 app.use(express.json());
+routes(app);
 
-app.get('/', (req, res) => {
-  res.status(200).send('Curso de Node');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('Curso de Node');
+// });
 
-app.get('/books', async (req, res) => {
-  try {
-    const allBooks = await books.find();
-    res.status(200).json(allBooks);
-  } catch (error) {
-    console.log(error);
-  }
-});
+// app.get('/books', async (req, res) => {
+//   try {
+//     const allBooks = await books.find();
+//     res.status(200).json(allBooks);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 app.get('/books/:id', (req, res) => {
   const bookIndex = getBookIndex(req.params.id);
