@@ -13,6 +13,16 @@ const BooksController = {
       console.log(error);
     }
   },
+  getBookById: async (req, res) => {
+    const bookId = req?.params?.id;
+
+    try {
+      const book = await books.findById(bookId);
+      res.status(200).send(book);
+    } catch (error) {
+      res.status(400).send({ message: `${error?.message} - Id do Livro nao localizado` });
+    }
+  },
   addBook: async (req, res) => {
     const book = new books(req.body);
     
