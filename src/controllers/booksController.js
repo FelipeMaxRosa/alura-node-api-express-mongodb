@@ -42,6 +42,16 @@ const BooksController = {
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
+  },
+  deleteBook: async (req, res) => {
+    const bookId = req?.params?.id;
+
+    try {
+      await books.findByIdAndDelete(bookId);
+      res.status(200).send({ message: 'Livro removido com sucesso!' })
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
   }
 };
 
