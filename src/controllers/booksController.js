@@ -3,7 +3,7 @@ import books from '../models/Book.js';
 const BooksController = {
   booksList: async (req, res) => {
     try {
-      const allBooks = await books.find();
+      const allBooks = await books.find().populate('author').exec();
       res.status(200).json(allBooks);
     } catch (error) {
       console.log(error);
@@ -13,10 +13,20 @@ const BooksController = {
     const bookId = req?.params?.id;
 
     try {
-      const book = await books.findById(bookId);
+      const book = await books.findById(bookId).populate('author', 'name').exec();
       res.status(200).send(book);
     } catch (error) {
       res.status(400).send({ message: `${error?.message} - Id do Livro nao localizado` });
+    }
+  },
+  getBookByEditora: async (req, res) => {
+    const editora = req.query.editora;
+
+    try {
+      const foundBooks = await books.find({'editora': editora}, {});
+      res.status(200).send(foundBooks);
+    } catch (error) {
+      res.status(500).send({ message: `${error.message} - Editora nao localizada`})
     }
   },
   addBook: async (req, res) => {
